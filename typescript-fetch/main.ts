@@ -1,4 +1,4 @@
-import { AuthApi, Configuration, GamesApi } from './client'
+import { AuthApi, Configuration, GamesApi } from './client/src'
 
 const argv = process.argv.slice(2)
 const config = new Configuration()

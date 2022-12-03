@@ -1,4 +1,4 @@
-# OpenapiClient::GamesApi
+# Cordial::GamesApi
 
 All URIs are relative to *https://cordial-api.joshraker.com*
 
@@ -23,23 +23,23 @@ Creates a new game.
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'cordial'
 # setup authorization
-OpenapiClient.configure do |config|
+Cordial.configure do |config|
   # Configure Bearer authorization (Bearer $TOKEN): token
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::GamesApi.new
+api_instance = Cordial::GamesApi.new
 opts = {
-  create_game_props: OpenapiClient::CreateGameProps.new({acceptor_id: 'acceptor_id_example'}) # CreateGameProps | 
+  create_game_props: Cordial::CreateGameProps.new({acceptor_id: 'acceptor_id_example'}) # CreateGameProps | 
 }
 
 begin
   
   result = api_instance.create_game(opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling GamesApi->create_game: #{e}"
 end
 ```
@@ -57,7 +57,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <Game>
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling GamesApi->create_game_with_http_info: #{e}"
 end
 ```
@@ -94,24 +94,24 @@ Make a guess for the specified game.
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'cordial'
 # setup authorization
-OpenapiClient.configure do |config|
+Cordial.configure do |config|
   # Configure Bearer authorization (Bearer $TOKEN): token
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::GamesApi.new
+api_instance = Cordial::GamesApi.new
 id = 789 # Integer | 
 opts = {
-  create_guess_props: OpenapiClient::CreateGuessProps.new({word: 'word_example'}) # CreateGuessProps | 
+  create_guess_props: Cordial::CreateGuessProps.new({word: 'word_example'}) # CreateGuessProps | 
 }
 
 begin
   
   result = api_instance.create_guess(id, opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling GamesApi->create_guess: #{e}"
 end
 ```
@@ -129,7 +129,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <Game>
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling GamesApi->create_guess_with_http_info: #{e}"
 end
 ```
@@ -167,21 +167,21 @@ Deletes the specified game.
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'cordial'
 # setup authorization
-OpenapiClient.configure do |config|
+Cordial.configure do |config|
   # Configure Bearer authorization (Bearer $TOKEN): token
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::GamesApi.new
+api_instance = Cordial::GamesApi.new
 id = 789 # Integer | 
 
 begin
   
   result = api_instance.delete_game(id)
   p result
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling GamesApi->delete_game: #{e}"
 end
 ```
@@ -199,7 +199,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <Game>
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling GamesApi->delete_game_with_http_info: #{e}"
 end
 ```
@@ -236,21 +236,21 @@ Returns the specified game.
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'cordial'
 # setup authorization
-OpenapiClient.configure do |config|
+Cordial.configure do |config|
   # Configure Bearer authorization (Bearer $TOKEN): token
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::GamesApi.new
+api_instance = Cordial::GamesApi.new
 id = 789 # Integer | 
 
 begin
   
   result = api_instance.get_game(id)
   p result
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling GamesApi->get_game: #{e}"
 end
 ```
@@ -268,7 +268,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <Game>
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling GamesApi->get_game_with_http_info: #{e}"
 end
 ```
@@ -305,20 +305,20 @@ Returns all accessible games.
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'cordial'
 # setup authorization
-OpenapiClient.configure do |config|
+Cordial.configure do |config|
   # Configure Bearer authorization (Bearer $TOKEN): token
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::GamesApi.new
+api_instance = Cordial::GamesApi.new
 
 begin
   
   result = api_instance.list_games
   p result
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling GamesApi->list_games: #{e}"
 end
 ```
@@ -336,7 +336,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <Array<Game>>
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling GamesApi->list_games_with_http_info: #{e}"
 end
 ```

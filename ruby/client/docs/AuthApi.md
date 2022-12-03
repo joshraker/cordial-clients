@@ -1,4 +1,4 @@
-# OpenapiClient::AuthApi
+# Cordial::AuthApi
 
 All URIs are relative to *https://cordial-api.joshraker.com*
 
@@ -20,23 +20,23 @@ Log in with the provided username and password.
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'cordial'
 # setup authorization
-OpenapiClient.configure do |config|
+Cordial.configure do |config|
   # Configure Bearer authorization (Bearer $TOKEN): token
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::AuthApi.new
+api_instance = Cordial::AuthApi.new
 opts = {
-  login_props: OpenapiClient::LoginProps.new({email: 'email_example', password: 'password_example'}) # LoginProps | 
+  login_props: Cordial::LoginProps.new({email: 'email_example', password: 'password_example'}) # LoginProps | 
 }
 
 begin
   
   result = api_instance.login(opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling AuthApi->login: #{e}"
 end
 ```
@@ -54,7 +54,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <Token>
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling AuthApi->login_with_http_info: #{e}"
 end
 ```
@@ -91,19 +91,19 @@ Log out of the current acount.
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'cordial'
 # setup authorization
-OpenapiClient.configure do |config|
+Cordial.configure do |config|
   # Configure Bearer authorization (Bearer $TOKEN): token
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::AuthApi.new
+api_instance = Cordial::AuthApi.new
 
 begin
   
   api_instance.logout
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling AuthApi->logout: #{e}"
 end
 ```
@@ -121,7 +121,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => nil
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling AuthApi->logout_with_http_info: #{e}"
 end
 ```

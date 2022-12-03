@@ -1,4 +1,4 @@
-# OpenapiClient::UsersApi
+# Cordial::UsersApi
 
 All URIs are relative to *https://cordial-api.joshraker.com*
 
@@ -21,23 +21,23 @@ Create a new user.
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'cordial'
 # setup authorization
-OpenapiClient.configure do |config|
+Cordial.configure do |config|
   # Configure Bearer authorization (Bearer $TOKEN): token
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::UsersApi.new
+api_instance = Cordial::UsersApi.new
 opts = {
-  create_user_props: OpenapiClient::CreateUserProps.new({email: 'email_example', password: 'password_example', display_name: 'display_name_example'}) # CreateUserProps | 
+  create_user_props: Cordial::CreateUserProps.new({email: 'email_example', password: 'password_example', display_name: 'display_name_example'}) # CreateUserProps | 
 }
 
 begin
   
   result = api_instance.create_user(opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling UsersApi->create_user: #{e}"
 end
 ```
@@ -55,7 +55,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <User>
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling UsersApi->create_user_with_http_info: #{e}"
 end
 ```
@@ -92,20 +92,20 @@ Returns the current user.
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'cordial'
 # setup authorization
-OpenapiClient.configure do |config|
+Cordial.configure do |config|
   # Configure Bearer authorization (Bearer $TOKEN): token
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::UsersApi.new
+api_instance = Cordial::UsersApi.new
 
 begin
   
   result = api_instance.get_my_account
   p result
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling UsersApi->get_my_account: #{e}"
 end
 ```
@@ -123,7 +123,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <Account>
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling UsersApi->get_my_account_with_http_info: #{e}"
 end
 ```
@@ -158,21 +158,21 @@ Returns the specified user.
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'cordial'
 # setup authorization
-OpenapiClient.configure do |config|
+Cordial.configure do |config|
   # Configure Bearer authorization (Bearer $TOKEN): token
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::UsersApi.new
+api_instance = Cordial::UsersApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
 
 begin
   
   result = api_instance.get_user(id)
   p result
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling UsersApi->get_user: #{e}"
 end
 ```
@@ -190,7 +190,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <User>
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling UsersApi->get_user_with_http_info: #{e}"
 end
 ```

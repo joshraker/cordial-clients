@@ -1,4 +1,4 @@
-# OpenapiClient::CreateUserProps
+# Cordial::CreateUserProps
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'cordial'
 
-instance = OpenapiClient::CreateUserProps.new(
+instance = Cordial::CreateUserProps.new(
   email: null,
   password: null,
   display_name: null

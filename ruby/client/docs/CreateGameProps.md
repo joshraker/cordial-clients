@@ -1,4 +1,4 @@
-# OpenapiClient::CreateGameProps
+# Cordial::CreateGameProps
 
 ## Properties
 
@@ -9,9 +9,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'cordial'
 
-instance = OpenapiClient::CreateGameProps.new(
+instance = Cordial::CreateGameProps.new(
   acceptor_id: null
 )
 ```

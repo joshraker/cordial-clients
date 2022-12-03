@@ -3,7 +3,7 @@ module go-client
 go 1.19
 
 require (
-	example.com/openapi v0.0.0
+	cordial v0.0.0
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
@@ -16,5 +16,5 @@ require (
 )
 
 replace (
-	example.com/openapi => ./client
+	cordial => ./client
 )

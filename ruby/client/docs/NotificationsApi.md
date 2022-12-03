@@ -1,4 +1,4 @@
-# OpenapiClient::NotificationsApi
+# Cordial::NotificationsApi
 
 All URIs are relative to *https://cordial-api.joshraker.com*
 
@@ -21,20 +21,20 @@ Get VAPID public key.
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'cordial'
 # setup authorization
-OpenapiClient.configure do |config|
+Cordial.configure do |config|
   # Configure Bearer authorization (Bearer $TOKEN): token
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::NotificationsApi.new
+api_instance = Cordial::NotificationsApi.new
 
 begin
   
   result = api_instance.get_public_key
   p result
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling NotificationsApi->get_public_key: #{e}"
 end
 ```
@@ -52,7 +52,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PublicKeyResponse>
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling NotificationsApi->get_public_key_with_http_info: #{e}"
 end
 ```
@@ -87,23 +87,23 @@ Subscribe to WebPush notifications.
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'cordial'
 # setup authorization
-OpenapiClient.configure do |config|
+Cordial.configure do |config|
   # Configure Bearer authorization (Bearer $TOKEN): token
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::NotificationsApi.new
+api_instance = Cordial::NotificationsApi.new
 opts = {
-  subscription: OpenapiClient::Subscription.new # Subscription | 
+  subscription: Cordial::Subscription.new # Subscription | 
 }
 
 begin
   
   result = api_instance.subscribe(opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling NotificationsApi->subscribe: #{e}"
 end
 ```
@@ -121,7 +121,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling NotificationsApi->subscribe_with_http_info: #{e}"
 end
 ```
@@ -158,23 +158,23 @@ Unsubscribe from WebPush notifications.
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'cordial'
 # setup authorization
-OpenapiClient.configure do |config|
+Cordial.configure do |config|
   # Configure Bearer authorization (Bearer $TOKEN): token
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::NotificationsApi.new
+api_instance = Cordial::NotificationsApi.new
 opts = {
-  unsubscribe_props: OpenapiClient::UnsubscribeProps.new # UnsubscribeProps | 
+  unsubscribe_props: Cordial::UnsubscribeProps.new # UnsubscribeProps | 
 }
 
 begin
   
   result = api_instance.unsubscribe(opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling NotificationsApi->unsubscribe: #{e}"
 end
 ```
@@ -192,7 +192,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts "Error when calling NotificationsApi->unsubscribe_with_http_info: #{e}"
 end
 ```

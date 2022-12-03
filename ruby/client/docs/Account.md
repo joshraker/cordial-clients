@@ -1,4 +1,4 @@
-# OpenapiClient::Account
+# Cordial::Account
 
 ## Properties
 
@@ -13,9 +13,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'cordial'
 
-instance = OpenapiClient::Account.new(
+instance = Cordial::Account.new(
   created_at: null,
   updated_at: null,
   id: null,

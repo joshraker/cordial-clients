@@ -1,4 +1,4 @@
-# OpenapiClient::CreateGuessProps
+# Cordial::CreateGuessProps
 
 ## Properties
 
@@ -9,9 +9,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'cordial'
 
-instance = OpenapiClient::CreateGuessProps.new(
+instance = Cordial::CreateGuessProps.new(
   word: null
 )
 ```

@@ -43,4 +43,8 @@ model_token.go
 model_unsubscribe_props.go
 model_user.go
 response.go
+test/api_auth_test.go
+test/api_games_test.go
+test/api_notifications_test.go
+test/api_users_test.go
 utils.go

@@ -1,4 +1,4 @@
-# OpenapiClient::PublicKeyResponse
+# Cordial::PublicKeyResponse
 
 ## Properties
 
@@ -9,9 +9,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'cordial'
 
-instance = OpenapiClient::PublicKeyResponse.new(
+instance = Cordial::PublicKeyResponse.new(
   public_key: null
 )
 ```

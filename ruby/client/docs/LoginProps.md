@@ -1,4 +1,4 @@
-# OpenapiClient::LoginProps
+# Cordial::LoginProps
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'cordial'
 
-instance = OpenapiClient::LoginProps.new(
+instance = Cordial::LoginProps.new(
   email: null,
   password: null
 )

@@ -1,26 +1,26 @@
 package main
 
-
 import (
 	"context"
-	. "example.com/openapi"
 	"fmt"
 	"os"
+
+	"cordial"
 )
 
 func main() {
-	c := NewAPIClient(NewConfiguration())
-	
+	c := cordial.NewAPIClient(cordial.NewConfiguration())
+
 	t, resp, err := c.AuthApi.Login(context.Background()).
-		LoginProps(*NewLoginProps(os.Args[1], os.Args[2])).
+		LoginProps(*cordial.NewLoginProps(os.Args[1], os.Args[2])).
 		Execute()
 
 	if err != nil {
 		fmt.Printf("%v: %+v\n", err, resp)
 		return
 	}
-	
-	ctx := context.WithValue(context.Background(), ContextAccessToken, *t.AccessToken)
+
+	ctx := context.WithValue(context.Background(), cordial.ContextAccessToken, *t.AccessToken)
 	defer func() {
 		if _, err := c.AuthApi.Logout(ctx).Execute(); err != nil {
 			fmt.Printf("Error logging out: %v\n", err)
@@ -30,8 +30,8 @@ func main() {
 
 	games, resp, err := c.GamesApi.ListGames(ctx).Execute()
 	if err != nil {
-                fmt.Printf("%v: %+v\n", err, resp)
-                return
+		fmt.Printf("%v: %+v\n", err, resp)
+		return
 	}
 
 	game, resp, err := c.GamesApi.GetGame(ctx, *games[0].Id).Execute()
@@ -42,4 +42,3 @@ func main() {
 
 	fmt.Printf("%s vs %s - %+v\n", *game.Requester.DisplayName, *game.Acceptor.DisplayName, game)
 }
-

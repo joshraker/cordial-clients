@@ -1,4 +1,4 @@
-# OpenapiClient::UnsubscribeProps
+# Cordial::UnsubscribeProps
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'cordial'
 
-instance = OpenapiClient::UnsubscribeProps.new(
+instance = Cordial::UnsubscribeProps.new(
   push_token: null,
   endpoint: null
 )

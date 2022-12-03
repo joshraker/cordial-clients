@@ -1,4 +1,4 @@
-# OpenapiClient::Guess
+# Cordial::Guess
 
 ## Properties
 
@@ -13,9 +13,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'cordial'
 
-instance = OpenapiClient::Guess.new(
+instance = Cordial::Guess.new(
   id: null,
   discarded_at: null,
   word: null,

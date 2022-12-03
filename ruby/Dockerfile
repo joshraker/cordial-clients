@@ -4,8 +4,9 @@ WORKDIR /app
 
 ADD client/ ./client/
 
-RUN gem build client/openapi_client.gemspec && \
-    gem install client/openapi_client*.gem
+RUN cd client && \
+    gem build cordial.gemspec && \
+    gem install cordial*.gem
 
 ADD . ./
 

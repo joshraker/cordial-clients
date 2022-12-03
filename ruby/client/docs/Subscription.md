@@ -1,4 +1,4 @@
-# OpenapiClient::Subscription
+# Cordial::Subscription
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'cordial'
 
-instance = OpenapiClient::Subscription.new(
+instance = Cordial::Subscription.new(
   push_token: null,
   endpoint: null,
   keys: null

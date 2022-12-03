@@ -1,4 +1,4 @@
-# OpenapiClient::Token
+# Cordial::Token
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'cordial'
 
-instance = OpenapiClient::Token.new(
+instance = Cordial::Token.new(
   id: null,
   discarded_at: null,
   access_token: null

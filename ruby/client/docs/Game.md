@@ -1,4 +1,4 @@
-# OpenapiClient::Game
+# Cordial::Game
 
 ## Properties
 
@@ -19,9 +19,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'cordial'
 
-instance = OpenapiClient::Game.new(
+instance = Cordial::Game.new(
   id: null,
   discarded_at: null,
   word: null,

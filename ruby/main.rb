@@ -1,29 +1,29 @@
-require 'openapi_client'
+require 'cordial'
 
-auth_client = OpenapiClient::AuthApi.new
+auth_client = Cordial::AuthApi.new
 token = nil
 
 begin
-  token = auth_client.login(login_props: OpenapiClient::LoginProps.new(email: ARGV[0], password: ARGV[1]))
-rescue OpenapiClient::ApiError => e
+  token = auth_client.login(login_props: Cordial::LoginProps.new(email: ARGV[0], password: ARGV[1]))
+rescue Cordial::ApiError => e
   puts e
   exit 1
 end
 
-OpenapiClient.configure do |config|
+Cordial.configure do |config|
   config.access_token = token.access_token
 end
 
 at_exit do
-  OpenapiClient::AuthApi.new.logout
+  Cordial::AuthApi.new.logout
 end
 
-games_client = OpenapiClient::GamesApi.new
+games_client = Cordial::GamesApi.new
 
 games = nil
 begin
   games = games_client.list_games
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts e
   exit 1
 end
@@ -31,7 +31,7 @@ end
 game = nil
 begin
   game = games_client.get_game(games.first.id)
-rescue OpenapiClient::ApiError => e
+rescue Cordial::ApiError => e
   puts e
   exit 1
 end

@@ -1,4 +1,4 @@
-# OpenapiClient::SubscriptionKeys
+# Cordial::SubscriptionKeys
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'cordial'
 
-instance = OpenapiClient::SubscriptionKeys.new(
+instance = Cordial::SubscriptionKeys.new(
   auth: null,
   p256dh: null
 )
