@@ -1,0 +1,474 @@
+openapi: 3.0.3
+info:
+  title: Cordial
+  version: 0.0.0
+  description: A cooperative word puzzle game!
+servers:
+- url: https://cordial-api.joshraker.com
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        id:
+          $ref: '#/components/schemas/UUID'
+        displayName:
+          type: string
+    Account:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        id:
+          $ref: '#/components/schemas/UUID'
+        displayName:
+          type: string
+        email:
+          type: string
+          format: email
+    Token:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+        discardedAt:
+          type: string
+          format: date-time
+          nullable: true
+        accessToken:
+          type: string
+    Game:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+        discardedAt:
+          type: string
+          format: date-time
+          nullable: true
+        word:
+          type: string
+          nullable: true
+        requesterId:
+          $ref: '#/components/schemas/UUID'
+        requester:
+          $ref: '#/components/schemas/User'
+        acceptorId:
+          $ref: '#/components/schemas/UUID'
+        acceptor:
+          $ref: '#/components/schemas/User'
+        currentUserId:
+          $ref: '#/components/schemas/UUID'
+        currentUser:
+          $ref: '#/components/schemas/User'
+        isWon:
+          type: boolean
+          nullable: true
+        guesses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Guess'
+    Guess:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ID'
+        discardedAt:
+          type: string
+          format: date-time
+          nullable: true
+        word:
+          type: string
+        gameId:
+          $ref: '#/components/schemas/ID'
+        comparison:
+          type: array
+          items:
+            type: integer
+            enum:
+            - -1
+            - 0
+            - 1
+            x-enum-varnames:
+            - NOT_PRESENT
+            - INCORRECT_PLACEMENT
+            - CORRECT_PLACEMENT
+    ID:
+      type: integer
+      format: int64
+    UUID:
+      type: string
+      format: uuid
+    EmptyObject:
+      type: object
+    Any: {}
+  parameters:
+    id:
+      name: id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/ID'
+    uuid:
+      name: id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/UUID'
+  responses:
+    401:
+      description: Invalid credentials.
+    403:
+      description: Forbidden.
+    422:
+      description: Invalid content.
+  securitySchemes:
+    token:
+      type: http
+      scheme: bearer
+      bearerFormat: Bearer $TOKEN
+tags:
+- name: Auth
+- name: Users
+- name: Games
+- name: Notifications
+security:
+- token: []
+paths:
+  /login:
+    summary: Login
+    description: Login
+    post:
+      operationId: login
+      description: Log in with the provided username and password.
+      tags:
+      - Auth
+      security:
+      - {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: LoginProps
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+              required:
+              - email
+              - password
+      responses:
+        200:
+          description: The user has successfully logged in.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        401:
+          description: The email or password is incorrect.
+  /logout:
+    post:
+      operationId: logout
+      description: Log out of the current acount.
+      tags:
+      - Auth
+      responses:
+        200:
+          description: Successfully logged out.
+        401:
+          $ref: '#/components/responses/401'
+  /users:
+    post:
+      operationId: createUser
+      description: Create a new user.
+      tags:
+      - Users
+      security:
+      - {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: CreateUserProps
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+                displayName:
+                  type: string
+              required:
+              - email
+              - password
+              - displayName
+      responses:
+        201:
+          description: User created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        422:
+          $ref: '#/components/responses/422'
+  /users/me:
+    get:
+      operationId: getMyAccount
+      description: Returns the current user.
+      tags:
+      - Users
+      responses:
+        200:
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        401:
+          $ref: '#/components/responses/401'
+  /users/{id}:
+    parameters:
+    - $ref: '#/components/parameters/uuid'
+    get:
+      operationId: getUser
+      description: Returns the specified user.
+      tags:
+      - Users
+      responses:
+        200:
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          description: User not found.
+  /games:
+    get:
+      operationId: listGames
+      description: Returns all accessible games.
+      tags:
+      - Games
+      responses:
+        200:
+          description: Success.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+        401:
+          $ref: '#/components/responses/401'
+    post:
+      operationId: createGame
+      description: Creates a new game.
+      tags:
+      - Games
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: CreateGameProps
+              type: object
+              properties:
+                acceptorId:
+                  $ref: '#/components/schemas/UUID'
+              required:
+              - acceptorId
+      responses:
+        201:
+          description: Game created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          description: User not found.
+        422:
+          $ref: '#/components/responses/422'
+  /games/{id}:
+    parameters:
+    - $ref: '#/components/parameters/id'
+    get:
+      operationId: getGame
+      description: Returns the specified game.
+      tags:
+      - Games
+      responses:
+        200:
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          description: Game not found.
+    delete:
+      operationId: deleteGame
+      description: Deletes the specified game.
+      tags:
+      - Games
+      responses:
+        200:
+          description: Game deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          description: Game not found.
+  /games/{id}/guess:
+    parameters:
+    - $ref: '#/components/parameters/id'
+    post:
+      operationId: createGuess
+      description: Make a guess for the specified game.
+      tags:
+      - Games
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: CreateGuessProps
+              type: object
+              properties:
+                word:
+                  type: string
+              required:
+              - word
+      responses:
+        200:
+          description: Guess created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        404:
+          description: Game not found.
+        422:
+          description: Invalid word.
+  /notifications/subscribe:
+    post:
+      operationId: subscribe
+      description: Subscribe to WebPush notifications.
+      tags:
+      - Notifications
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: Subscription
+              type: object
+              properties:
+                pushToken:
+                  type: string
+                endpoint:
+                  type: string
+                keys:
+                  title: SubscriptionKeys
+                  type: object
+                  properties:
+                    auth:
+                      type: string
+                    p256dh:
+                      type: string
+                  required:
+                  - auth
+                  - p256dh
+      responses:
+        200:
+          description: Subscription updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyObject'
+        201:
+          description: Subscription created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyObject'
+        401:
+          $ref: '#/components/responses/401'
+        422:
+          $ref: '#/components/responses/422'
+  /notifications/unsubscribe:
+    post:
+      operationId: unsubscribe
+      description: Unsubscribe from WebPush notifications.
+      tags:
+      - Notifications
+      security:
+      - {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: UnsubscribeProps
+              type: object
+              properties:
+                pushToken:
+                  type: string
+                endpoint:
+                  type: string
+      responses:
+        200:
+          description: Subscription deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyObject'
+        404:
+          description: Subscription not found.
+        422:
+          $ref: '#/components/responses/422'
+  /notifications/key:
+    get:
+      operationId: getPublicKey
+      description: Get VAPID public key.
+      tags:
+      - Notifications
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: PublicKeyResponse
+                type: object
+                properties:
+                  publicKey:
+                    type: string
+                required:
+                - publicKey
+        401:
+          $ref: '#/components/responses/401'

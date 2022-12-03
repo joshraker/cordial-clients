@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  openapi-codegen:
+    image: openapitools/openapi-generator-cli:v6.2.1
+    volumes:
+      - .:/local
+    command:
+      - generate
+      - -i
+      - /local/openapi.yml
+      - -o
+      - /local/api/typescript-fetch
+      - -g
+      - typescript-fetch
+      - --additional-properties
+      - typescriptThreePlus=true
