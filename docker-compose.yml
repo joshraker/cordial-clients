@@ -4,6 +4,7 @@ services:
     image: openapitools/openapi-generator-cli:v6.2.1
     volumes:
       - .:/local
+    working_dir: /local
     command:
       - generate
       - -i
@@ -14,3 +15,11 @@ services:
       - typescript-fetch
       - --additional-properties
       - typescriptThreePlus=true
+  scripts:
+    image: golang:1.19-alpine
+    volumes:
+      - .:/local
+    working_dir: /local
+    entrypoint:
+      - go
+      - run

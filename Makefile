@@ -3,34 +3,49 @@ all: go typescript-fetch ruby
 .PHONY: default all go typescript-fetch ruby
 FORCE:
 
+ROOT_DIR=clients
+TEMPLATE_DIR=templates
+CUSTOM_DIR=custom
 CLIENT_DIR=client
 
 go:
-	docker-compose run --rm openapi-codegen generate -i /local/openapi.yml -o '/local/$@/${CLIENT_DIR}' -g '$@' \
+	@make rm-$@
+	docker-compose run --rm openapi-codegen generate -i openapi.yml -o ${ROOT_DIR}/$@/${CLIENT_DIR} -g $@ \
+		-t ${TEMPLATE_DIR}/$@ \
 		-p packageName=cordial \
 		-p packageVersion=1.0.0
+	@make inject-$@
 
 typescript-fetch:
-	docker-compose run --rm openapi-codegen generate -i /local/openapi.yml -o '/local/$@/${CLIENT_DIR}' -g '$@' \
+	@make rm-$@
+	docker-compose run --rm openapi-codegen generate -i openapi.yml -o ${ROOT_DIR}/$@/${CLIENT_DIR} -g $@ \
+		-t ${TEMPLATE_DIR}/$@ \
 		-p typescriptThreePlus=true \
 		-p npmName=cordial \
 		-p npmVersion=1.0.0
+	@make inject-$@
 
 ruby:
-	docker-compose run --rm openapi-codegen generate -i /local/openapi.yml -o '/local/$@/${CLIENT_DIR}' -g '$@' \
+	@make rm-$@
+	docker-compose run --rm openapi-codegen generate -i openapi.yml -o ${ROOT_DIR}/$@/${CLIENT_DIR} -g $@ \
+		-t ${TEMPLATE_DIR}/$@ \
 		-p useAutoload=true \
 		-p gemName=cordial \
 		-p gemVersion=1.0.0
+	@make inject-$@
 
-author-%:
-	docker-compose run --rm openapi-codegen author -g '$@'
+inject-%: FORCE
+	docker-compose run --rm scripts scripts/inject-custom/main.go ${ROOT_DIR}/$*/${CUSTOM_DIR} ${ROOT_DIR}/$*/${CLIENT_DIR}
+
+template-%: FORCE
+	docker-compose run --rm openapi-codegen author template -g $* -o .templates/$*
 
 rm-%: FORCE
-	rm -rf '$*/${CLIENT_DIR}'
+	rm -rf ${ROOT_DIR}/$*/${CLIENT_DIR}
 
 build-%: FORCE
-	cd '$*' && docker-compose build
+	cd ${ROOT_DIR}/$* && docker-compose build
 
 run-%: build-%
-	cd '$*' && docker-compose run --rm example "$$CORDIAL_USERNAME" "$$CORDIAL_PASSWORD"
+	cd ${ROOT_DIR}/$* && docker-compose run --rm example "$$CORDIAL_USERNAME" "$$CORDIAL_PASSWORD"
 
