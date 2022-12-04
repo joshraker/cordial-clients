@@ -34,11 +34,26 @@ func main() {
 		return
 	}
 
-	game, resp, err := c.GamesApi.GetGame(ctx, *games[0].Id).Execute()
+	game, resp, err := c.GamesApi.GetGame(ctx, *games[len(games)-1].Id).Execute()
 	if err != nil {
 		fmt.Printf("%v: %+v\n", err, resp)
 		return
 	}
 
-	fmt.Printf("%s vs %s - %+v\n", *game.Requester.DisplayName, *game.Acceptor.DisplayName, game)
+	fmt.Printf("%+v\n", game)
+
+	title := "Solo Game"
+	if !game.IsSoloGame() {
+		title = fmt.Sprintf("%s and %s", *game.Requester.DisplayName, *game.Acceptor.DisplayName)
+	}
+
+	fmt.Println(title)
+
+	if len(game.Guesses) == 0 {
+		fmt.Println("No Guesses")
+	}
+
+	for _, guess := range game.Guesses {
+		fmt.Printf("%s - %v\n", *guess.Word, guess.Comparison)
+	}
 }

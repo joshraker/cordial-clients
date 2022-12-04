@@ -30,7 +30,7 @@ end
 
 game = nil
 begin
-  game = games_client.get_game(games.first.id)
+  game = games_client.get_game(games.last.id)
 rescue Cordial::ApiError => e
   puts e
   exit 1
@@ -38,3 +38,16 @@ end
 
 puts game
 
+if game.requester_id == game.acceptor_id
+  puts 'Solo Game'
+else
+  puts "#{game.requester.display_name} and #{game.acceptor.display_name}"
+end
+
+if game.guesses.empty?
+  puts 'No Guesses'
+end
+
+game.guesses.each do |guess|
+  puts "#{guess.word} - #{guess.comparison}"
+end

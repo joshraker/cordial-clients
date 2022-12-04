@@ -24,15 +24,29 @@ let token
     return
   }
 
-  let game
+  let game = games[games.length - 1]
   try {
-    game = await gamesClient.getGame({ id: games[0].id })
+    game = await gamesClient.getGame({ id: game.id })
   } catch(e) {
-    console.error(`Error fetching game ${games[0].id}: ${e}`)
+    console.error(`Error fetching game ${game.id}: ${e}`)
     return
   }
 
   console.log(game)
+
+  if (game.requesterId == game.acceptorId) {
+    console.log("Solo Game")
+  } else {
+    console.log(`${game.requester.displayName} and ${game.acceptor.displayName}`)
+  }
+
+  if (game.guesses.length == 0) {
+    console.log("No Guesses")
+  }
+
+  for (const guess of game.guesses) {
+    console.log(`${guess.word} - ${guess.comparison}`)
+  }
 })()
 .finally(async () => {
   if (token) {
