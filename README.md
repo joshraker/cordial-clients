@@ -2,7 +2,15 @@
 
 ## Usage
 
-### Build all clients
+### Build clients
+
+Single client:
+
+```shell
+make <generator-name>
+```
+
+All clients:
 
 ```shell
 make
@@ -14,7 +22,17 @@ or
 make all
 ```
 
-Each client will be placed in `<generator-name>/client/`.
+The client will be placed in `clients/<generator-name>/client`.
+
+### Extract template files for a generator
+
+```shell
+make tempalte-<generator-name>
+```
+
+The templates will be placed in the `.templates` directory. To alter a template,
+copy it to the `clients/<generator-name>/templates` directory, then make the 
+desired changes.
 
 ### Build example Docker image
 
@@ -30,10 +48,10 @@ Usually not used directly. A prerequisite of the `run-<generator-name>` target.
 make run-<generator-name> CORDIAL_USERNAME='user' CORDIAL_PASSWORD='pass'
 ```
 
-The examples use the provided credentials to login, retrieve the newest game,
-and print the `Game` object and all the guesses that have been made. You can
-create an account quickly and easily at https://cordial.joshraker.com and create
-a solo game to test.
+The examples use the provided credentials to log in, retrieve the newest game,
+print the `Game` object and all the guesses that have been made, and, finally, 
+log out. You can create an account quickly and easily at
+https://cordial.joshraker.com and create a solo game to test.
 
 See the `Makefile` for a list of clients that have an example.
 
@@ -47,7 +65,7 @@ See the `Makefile` for a list of clients that have an example.
 - Always provide a `title` for inline schemas so that the generated models will
   have a useful name. Otherwise, the generator may pick a name like
   `InlineRequest001` which makes it difficult to use the client directly. I
-  believe this to be the primary reason we had to wrap `go-deploy`.
+  believe this to be the primary reason we had to wrap the `go-deploy` client.
 - The generated examples/docs are not always 100% accurate. Don't be surprised
   if you have to read the code for the client in order to determine how to use
   it. In other words, we may have to produce usable documentation for the
@@ -61,3 +79,6 @@ See the `Makefile` for a list of clients that have an example.
   this is not possible, we may have to create helper methods separate from the
   model classes themselves. Alternatively, the server could return calculated
   values like this in the response, or we could edit the generator's templates.
+  For these examples, I've opted to alter the templates to include a comment 
+  that will be replaced with the contents of the corresponding file in
+  `clients/<generator-name>/custom`.
