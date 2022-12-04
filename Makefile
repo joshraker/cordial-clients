@@ -11,7 +11,7 @@ CLIENT_DIR=client
 go:
 	@make rm-$@
 	docker-compose run --rm openapi-codegen generate -i openapi.yml -o ${ROOT_DIR}/$@/${CLIENT_DIR} -g $@ \
-		-t ${TEMPLATE_DIR}/$@ \
+		-t ${ROOT_DIR}/$@/${TEMPLATE_DIR} \
 		-p packageName=cordial \
 		-p packageVersion=1.0.0
 	@make inject-$@
@@ -19,7 +19,7 @@ go:
 typescript-fetch:
 	@make rm-$@
 	docker-compose run --rm openapi-codegen generate -i openapi.yml -o ${ROOT_DIR}/$@/${CLIENT_DIR} -g $@ \
-		-t ${TEMPLATE_DIR}/$@ \
+		-t ${ROOT_DIR}/$@/${TEMPLATE_DIR} \
 		-p typescriptThreePlus=true \
 		-p npmName=cordial \
 		-p npmVersion=1.0.0
@@ -28,7 +28,7 @@ typescript-fetch:
 ruby:
 	@make rm-$@
 	docker-compose run --rm openapi-codegen generate -i openapi.yml -o ${ROOT_DIR}/$@/${CLIENT_DIR} -g $@ \
-		-t ${TEMPLATE_DIR}/$@ \
+		-t ${ROOT_DIR}/$@/${TEMPLATE_DIR} \
 		-p useAutoload=true \
 		-p gemName=cordial \
 		-p gemVersion=1.0.0
